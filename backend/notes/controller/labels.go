@@ -13,9 +13,9 @@ import (
 // POST /label
 func Create_label(c *gin.Context) {
 	var label models.LabelsDoc
-	
-	if err := c.ShouldBindJSON( &label ); err != nil {
-		c.JSON( http.StatusBadRequest, err.Error())
+
+	if err := c.ShouldBindJSON(&label); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -23,22 +23,22 @@ func Create_label(c *gin.Context) {
 
 	if user == nil {
 		c.JSON(http.StatusBadRequest, "user not found")
-		return 
+		return
 	}
 
-	col := database.DB().Collection("Labels");
+	col := database.DB().Collection("Labels")
 
-	res, err := col.InsertOne( context.TODO(), bson.D { 
-		{ Key: "name", Value: label.Name},
-		{ Key: "user", Value: label.User},
-	} );
+	res, err := col.InsertOne(context.TODO(), bson.D{
+		{Key: "name", Value: label.Name},
+		{Key: "user", Value: label.User},
+	})
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
-		return;
+		return
 	}
 
-	c.JSON( http.StatusOK, res.InsertedID )
+	c.JSON(http.StatusOK, res.InsertedID)
 }
 
 // GET /labels/:user
@@ -47,21 +47,21 @@ func Get_label_from_user(c *gin.Context) {
 
 	if user == nil {
 		c.JSON(http.StatusBadRequest, "user not found")
-		return 
+		return
 	}
-	col := database.DB().Collection("Labels");
+	col := database.DB().Collection("Labels")
 
-	cur, err := col.Find(context.TODO(), bson.D{ {Key: "user", Value: user.Name} })
+	cur, err := col.Find(context.TODO(), bson.D{{Key: "user", Value: user.Name}})
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
-		return;
+		return
 	}
 
 	var arr []models.LabelsDoc
 	if err := cur.All(context.TODO(), &arr); err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
-		return;
+		return
 	}
 
 	c.JSON(http.StatusOK, arr)

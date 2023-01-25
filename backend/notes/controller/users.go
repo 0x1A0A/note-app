@@ -10,11 +10,11 @@ import (
 
 func find_user(name string) *models.UsersDoc {
 	col := database.DB().Collection("Users")
-	res := col.FindOne( context.TODO(), bson.D{ { Key: "name", Value: name } } )
+	res := col.FindOne(context.TODO(), bson.D{{Key: "name", Value: name}})
 
 	var user models.UsersDoc
 
-	if err := res.Decode(&user); err!=nil {
+	if err := res.Decode(&user); err != nil {
 		return nil
 	}
 

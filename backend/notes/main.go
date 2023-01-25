@@ -1,8 +1,8 @@
 package main
 
 import (
-	"0x1a0a/note-app/database"
 	"0x1a0a/note-app/controller"
+	"0x1a0a/note-app/database"
 	"context"
 	"time"
 
@@ -41,8 +41,8 @@ func main() {
 	router := gin.Default()
 	router.Use(CORSMiddleware())
 
-	router.POST("/label", controller.Create_label);
-	router.GET("/labels/:user", controller.Get_label_from_user);
+	router.POST("/label", controller.Create_label)
+	router.GET("/labels/:user", controller.Get_label_from_user)
 
 	router.Run("localhost:6000")
 
