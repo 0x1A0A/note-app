@@ -1,0 +1,16 @@
+{
+  "name": "signup-svc",
+  "version": "1.0.0",
+  "description": "singup service for note app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "express": "^4.18.2",
+    "mongodb": "^4.13.0"
+  }
+}
