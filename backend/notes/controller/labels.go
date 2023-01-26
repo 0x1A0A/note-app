@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 // POST /label
@@ -65,6 +66,20 @@ func Get_label_from_user(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, arr)
+}
+
+func find_label_by_id(id primitive.ObjectID) *models.LabelsDoc {
+	col := database.DB().Collection("Labels")
+
+	res := col.FindOne(context.TODO(), bson.D{{Key: "_id", Value: id}})
+
+	var label models.LabelsDoc
+
+	if err := res.Decode(&label); err != nil {
+		return nil
+	}
+
+	return &label
 }
 
 // PATCH /labels/:user/:id -- TODO? don't know yet

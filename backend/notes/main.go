@@ -44,6 +44,9 @@ func main() {
 	router.POST("/label", controller.Create_label)
 	router.GET("/labels/:user", controller.Get_label_from_user)
 
+	router.POST("/note", controller.Create_note)
+	router.GET("/notes/:label", controller.Get_note_by_lable_id)
+
 	router.Run("localhost:6000")
 
 	defer func() {
